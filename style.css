@@ -539,3 +539,37 @@ nav{
 }
 
 }
+/* Checkbox ကိုဖျောက်ထား */
+#menu-toggle{
+    display:none;
+    
+}
+
+/* Menu Icon */
+.menu-icon{
+    display:none;
+    font-size:30px;
+    cursor:pointer;
+    color: #f5f8ff;
+}
+
+
+/* Mobile */
+@media(max-width:768px){
+
+    .menu-icon{
+        display:block;
+    }
+
+
+    nav{
+        display:none;
+        flex-direction:column;
+    }
+
+
+    #menu-toggle:checked ~ nav{
+        display:flex;
+    }
+
+}
