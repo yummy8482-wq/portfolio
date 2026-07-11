@@ -43,6 +43,11 @@ header{
     font-size:28px;
     font-weight:700;
 }
+nav{
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
 
 nav a{
     color:#fff;
@@ -514,9 +519,7 @@ footer p{
     flex-direction:column;
 }
 
-nav{
-    display:none;
-}
+
 
 .hero-text h1{
     font-size:50px;
@@ -556,6 +559,9 @@ nav{
 
 /* Mobile */
 @media(max-width:768px){
+    header{
+        position: relative;
+    }
 
     .menu-icon{
         display:block;
@@ -565,6 +571,13 @@ nav{
     nav{
         display:none;
         flex-direction:column;
+        position: absolute;
+        top: 75px;
+        right: 0;
+        width: 200px;
+        background: #08162f;
+        text-align: center;
+        padding: 10px 0;
     }
 
 
