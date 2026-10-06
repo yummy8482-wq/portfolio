@@ -1,325 +1,244 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aung Min Khant | Portfolio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ベビー、会いますか？</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg1:#ffe3ec; --bg2:#ffd0e0; --pink:#ff6f9f; --deep:#d63a71;
+    --card:#fffafc; --ink:#6b2a44; --soft:#ffb3cd; --mint:#bdeedd;
+  }
+  *{box-sizing:border-box;margin:0}
+  html,body{height:100%}
+  body{
+    font-family:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Noto Sans Myanmar",sans-serif;
+    color:var(--ink);
+    background:radial-gradient(circle at 20% 10%,var(--bg1),var(--bg2) 70%);
+    display:flex;align-items:center;justify-content:center;
+    padding:20px;overflow:hidden;
+  }
+  .hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+  .hearts span{
+    position:absolute;bottom:-40px;font-size:22px;opacity:.5;
+    animation:float linear infinite;
+  }
+  @keyframes float{to{transform:translateY(-110vh) rotate(25deg);opacity:0}}
+  .card{
+    position:relative;z-index:2;width:100%;max-width:420px;min-height:420px;
+    background:var(--card);border-radius:36px;padding:36px 26px 30px;
+    text-align:center;
+    box-shadow:0 18px 50px rgba(214,58,113,.22), 0 0 0 6px #fff inset;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;
+  }
+  .emoji{font-size:64px;animation:bob 2.2s ease-in-out infinite}
+  @keyframes bob{50%{transform:translateY(-8px) rotate(-4deg)}}
+  h1{font-size:30px;font-weight:900;line-height:1.35;color:var(--deep)}
+  p.sub{font-size:15px;opacity:.75}
+  .btns{display:flex;gap:16px;justify-content:center;align-items:center;min-height:56px}
+  button{
+    font-family:inherit;font-weight:700;font-size:18px;border:none;cursor:pointer;
+    border-radius:999px;padding:14px 34px;transition:transform .15s, box-shadow .15s;
+  }
+  button:focus-visible{outline:3px solid var(--deep);outline-offset:3px}
+  .yes{background:linear-gradient(135deg,#ff82ae,var(--deep));color:#fff;box-shadow:0 8px 20px rgba(214,58,113,.4)}
+  .yes:hover{transform:scale(1.08)}
+  .no{background:#ece6ea;color:#7a6872}
+  .no.run{position:fixed;z-index:10;transition:left .18s ease-out, top .18s ease-out}
+  .hidden{display:none!important}
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="./style.css">
+  /* date step */
+  .dates{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%}
+  .date{
+    background:#fff;border:2px solid var(--soft);border-radius:20px;padding:12px 4px;
+    color:var(--ink);font-size:14px;line-height:1.4;font-weight:700;
+  }
+  .date b{display:block;font-size:24px;color:var(--deep)}
+  .date:hover{transform:translateY(-3px)}
+  .date.sel{background:var(--pink);border-color:var(--pink);color:#fff}
+  .date.sel b{color:#fff}
+  .date:disabled{opacity:.35;cursor:not-allowed}
+  .time{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+  .time button{padding:9px 18px;font-size:15px;background:#fff;border:2px solid var(--soft);color:var(--ink)}
+  .time button.sel{background:var(--pink);border-color:var(--pink);color:#fff}
+  .confirm{margin-top:4px}
+  .confirm:disabled{opacity:.4;cursor:not-allowed;transform:none}
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  .result{background:#fff;border:2px dashed var(--soft);border-radius:20px;padding:14px 18px;font-size:19px;font-weight:700;color:var(--deep)}
+  .small{font-size:13px;opacity:.7}
+  .step{display:flex;flex-direction:column;align-items:center;gap:20px;width:100%}
+  @media (prefers-reduced-motion:reduce){.hearts span,.emoji{animation:none}}
+</style>
 </head>
-
 <body>
+<div class="hearts" id="hearts"></div>
 
-<!-- ================= NAVBAR ================= -->
+<main class="card">
 
-<header>
-
-    <div class="logo">
-        AUNG MIN KHANT
+  <!-- STEP 1 -->
+  <section class="step" id="s1">
+    <div class="emoji">🐻💗</div>
+    <h1>ベビー、会いますか？</h1>
+    <div class="btns" id="btns">
+      <button class="yes" id="yes">はい</button>
+      <button class="no" id="no">いいえ</button>
     </div>
-<input type="checkbox" id="menu-toggle">
-
-    <label for="menu-toggle" class="menu-icon">
-        ☰
-    </label>
-    <nav>
-
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-
-    </nav>
-
-</header>
-
-<!-- ================= HERO ================= -->
-
-<section class="hero">
-
-<div class="hero-text">
-
-<p>Hello, I'm</p>
-
-<h1>
-AUNG MIN<br>
-<span>KHANT</span>
-</h1>
-
-<h3>IT Student | Web Developer</h3>
-
-<p class="description">
-Passionate about creating beautiful and functional
-websites and learning new technologies.
-</p>
-
-<div class="buttons">
-
-<a href="#" class="btn1">
-Download CV
-</a>
-
-<a href="#" class="btn2">
-Contact Me
-</a>
-
-</div>
-
-<div class="social">
-
-<a href="#"><i class="fab fa-github"></i></a>
-
-<a href="#"><i class="fab fa-linkedin"></i></a>
-
-<a href="#"><i class="fas fa-envelope"></i></a>
-
-</div>
-
-</div>
-
-<div class="hero-image">
-
-<img src="./img/profile.jpg" alt="Profile">
-
-</div>
-
-</section>
-
-<!-- ================= ABOUT ================= -->
-
-<section id="about">
-
-<div class="about-left">
-
-<h2>ABOUT ME</h2>
-
-<p>
-Hello! My name is Aung Min Khant.
-I am currently studying HTML, CSS,
-Java, DatabaseSQL at an IT college
-in Japan.
-</p>
-
-<p>
-I enjoy building websites and applications
-to improve my practical skills.
-</p>
-
-<p>
-After graduation, I hope to work as
-an IT Engineer in Japan.
-</p>
-
-</div>
-
-<div class="about-right">
-
-<h2>自己紹介</h2>
-
-<p>
-はじめまして。
-私は現在、日本のIT専門学校で
-HTML、CSS、Java、
-データベースSQLを学んでいます。
-</p>
-
-<p>
-プログラミングやWeb開発に興味があり、
-日々勉強しています。
-</p>
-
-<p>
-卒業後は日本でITエンジニアとして
-働くことが目標です。
-</p>
-
-</div>
-
-</section>
-
-<!-- ================= SKILLS ================= -->
-
-<section id="skills">
-
-<h2>SKILLS</h2>
-
-<div class="skill-container">
-
-<div class="card">
-
-<i class="fab fa-html5 html"></i>
-
-<h3>HTML</h3>
-
-<p>95%</p>
-
-<div class="bar">
-<div class="fill html-fill"></div>
-</div>
-
-</div>
-
-<div class="card">
-
-<i class="fab fa-css3-alt css"></i>
-
-<h3>CSS</h3>
-
-<p>90%</p>
-
-<div class="bar">
-<div class="fill css-fill"></div>
-</div>
-
-</div>
-
-<div class="card">
-
-<i class="fab fa-java java"></i>
-
-<h3>Java</h3>
-
-<p>80%</p>
-
-<div class="bar">
-<div class="fill java-fill"></div>
-</div>
-
-</div>
-
-<div class="card">
-
-<i class="fas fa-database mysql"></i>
-
-<h3>MySQL</h3>
-
-<p>75%</p>
-
-<div class="bar">
-<div class="fill mysql-fill"></div>
-</div>
-
-</div>
-
-</section>
-
-<!-- ================= PROJECTS ================= -->
-
-<section id="projects">
-
-<h2>PROJECTS</h2>
-
-<div class="project-container">
-
-<div class="project-card">
-
-<img src="">
-
-<h3>Coffee Shop Website</h3>
-
-<p>
-Responsive website for a coffee shop using HTML and CSS.
-</p>
-
-<a href="#">View Project</a>
-
-</div>
-
-<div class="project-card">
-
-<img src="">
-
-<h3>Pizza Website</h3>
-
-<p>
-Pizza order website using HTML and CSS.
-</p>
-
-<a href="#">View Project</a>
-
-</div>
-
-<div class="project-card">
-
-<img src="./img/Portfolio.png">
-
-<h3>Portfolio Website</h3>
-
-<p>
-Personal Portfolio Website using HTML and CSS.
-</p>
-
-<a href="./index.html">View Project</a>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ================= CONTACT ================= -->
-
-<section id="contact">
-
-<div class="contact-left">
-
-<h2>CONTACT</h2>
-
-<p><i class="fas fa-envelope"></i><a href="mailto: minkhant@example.com"> minkhant@example.com</a> </p>
-
-<p><i class="fas fa-phone"></i><a href="tel:+81-90-1234-5678">+81-90-1234-5678</a> </p>
-
-<p><i class="fas fa-location-dot"></i> Osaka, Japan</p>
-
-<p><i class="fab fa-github"></i> github.com/aungminkhant</p>
-
-<p><i class="fab fa-linkedin"></i> linkedin.com/in/aungminkhant</p>
-
-</div>
-
-<div class="contact-right">
-
-<form>
-
-<input type="text" placeholder="Your Name">
-
-<input type="email" placeholder="Email">
-
-<textarea rows="6" placeholder="Message"></textarea>
-
-<button>
-Send Message
-</button>
-
-</form>
-
-</div>
-
-</section>
-
-<!-- ================= FOOTER ================= -->
-
-<footer>
-
-<p>
-
-© 2026 Aung Min Khant.
-All Rights Reserved.
-
-</p>
-
-<p>
-
-Made with using HTML & CSS
-
-</p>
-
-</footer>
-
+    <p class="sub" id="hint"></p>
+  </section>
+
+  <!-- STEP 2 -->
+  <section class="step hidden" id="s2">
+    <div class="emoji">📅</div>
+    <h1>いつ会いますか？</h1>
+    <div class="dates" id="dates"></div>
+    <div class="time" id="times">
+      <button data-t="午前">午前 ☀️</button>
+      <button data-t="午後">午後 🌤️</button>
+      <button data-t="夜">夜 🌙</button>
+    </div>
+    <button class="yes confirm" id="confirm" disabled>これにする 💌</button>
+  </section>
+
+  <!-- STEP 3 -->
+  <section class="step hidden" id="s3">
+    <div class="emoji">🥰</div>
+    <h1>やったー！<br>楽しみ！</h1>
+    <div class="result" id="result"></div>
+    <p class="small" id="sendInfo"></p>
+    <button class="yes" id="copy">メッセージをコピー 📋</button>
+    <button class="no" id="again">もう一度えらぶ</button>
+  </section>
+</main>
+
+<script>
+/* ============ ဒီနေရာမှာ ပြင်ပါ / EDIT HERE ============ */
+const CONFIG = {
+  // ရွေးတဲ့ရက်ကို ကိုယ့်ဆီ ပို့ဖို့ (အောက်က ၃ ခုထဲက တစ်ခုခု သုံးပါ)
+  // 1) Formspree: https://formspree.io မှာ form ဖန်တီးပြီး endpoint ထည့်ပါ  e.g. "https://formspree.io/f/xxxxxxx"
+  formspreeEndpoint: "",
+  // 2) Telegram username (@ မပါ) — ရွေးပြီးတာနဲ့ Telegram ဖွင့်ပြီး message အဆင်သင့်ပေါ်လာမယ်
+  telegramUsername: "",
+  // 3) Messenger username (m.me/xxxx)
+  messengerUsername: "",
+  daysToShow: 9,          // ဘယ်နှရက်ပြမလဲ
+  startFromTomorrow: true
+};
+/* ===================================================== */
+
+// floating hearts
+const hw = document.getElementById('hearts');
+for(let i=0;i<18;i++){
+  const s=document.createElement('span');
+  s.textContent=['💗','💕','🌸','✨'][i%4];
+  s.style.left=Math.random()*100+'%';
+  s.style.fontSize=(16+Math.random()*20)+'px';
+  s.style.animationDuration=(8+Math.random()*10)+'s';
+  s.style.animationDelay=(-Math.random()*14)+'s';
+  hw.appendChild(s);
+}
+
+const $=id=>document.getElementById(id);
+const no=$('no'), hint=$('hint');
+const taunts=["えっ？😳","だめだよ〜","こっちだよ💗","押せないよ🤭","はい を押して〜","ざんねん！"];
+let tauntI=0, moved=false;
+
+// ---- runaway "No" ----
+function dodge(){
+  if(!moved){
+    moved=true;
+    no.classList.add('run');
+    // keep layout width
+    const ph=document.createElement('button');
+    ph.className='no'; ph.style.visibility='hidden'; ph.textContent=no.textContent; ph.id='ph';
+    $('btns').appendChild(ph);
+  }
+  const m=12, w=no.offsetWidth, h=no.offsetHeight;
+  const x=m+Math.random()*(window.innerWidth-w-2*m);
+  const y=m+Math.random()*(window.innerHeight-h-2*m);
+  no.style.left=x+'px'; no.style.top=y+'px';
+  hint.textContent=taunts[tauntI++%taunts.length];
+}
+// mouse, touch, keyboard all dodge
+['mouseover','mouseenter','pointerdown','touchstart','focus'].forEach(ev=>
+  no.addEventListener(ev,e=>{e.preventDefault();dodge();},{passive:false}));
+no.addEventListener('click',e=>{e.preventDefault();dodge();});
+// proximity dodge (cursor gets near)
+document.addEventListener('mousemove',e=>{
+  const r=no.getBoundingClientRect();
+  const cx=r.left+r.width/2, cy=r.top+r.height/2;
+  if(Math.hypot(e.clientX-cx,e.clientY-cy)<90) dodge();
+});
+
+// ---- step 1 → 2 ----
+$('yes').addEventListener('click',()=>{
+  no.classList.add('hidden'); const ph=$('ph'); if(ph) ph.remove();
+  $('s1').classList.add('hidden'); $('s2').classList.remove('hidden');
+  buildDates();
+});
+
+// ---- date picker ----
+let pickedDate=null, pickedTime=null;
+const wd=['日','月','火','水','木','金','土'];
+function buildDates(){
+  const box=$('dates'); box.innerHTML='';
+  const base=new Date(); base.setHours(0,0,0,0);
+  if(CONFIG.startFromTomorrow) base.setDate(base.getDate()+1);
+  for(let i=0;i<CONFIG.daysToShow;i++){
+    const d=new Date(base); d.setDate(base.getDate()+i);
+    const b=document.createElement('button');
+    b.className='date';
+    b.innerHTML=`${d.getMonth()+1}月<b>${d.getDate()}</b>${wd[d.getDay()]}曜日`;
+    b.onclick=()=>{
+      document.querySelectorAll('.date').forEach(x=>x.classList.remove('sel'));
+      b.classList.add('sel'); pickedDate=d; check();
+    };
+    box.appendChild(b);
+  }
+}
+document.querySelectorAll('#times button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#times button').forEach(x=>x.classList.remove('sel'));
+  b.classList.add('sel'); pickedTime=b.dataset.t; check();
+});
+function check(){ $('confirm').disabled=!(pickedDate&&pickedTime); }
+
+// ---- step 2 → 3 ----
+let message='';
+$('confirm').addEventListener('click',async()=>{
+  const d=pickedDate;
+  const text=`${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日（${wd[d.getDay()]}）${pickedTime}`;
+  message=`ベビー、会いましょう！💗 ${text}`;
+  $('result').textContent=text;
+  $('s2').classList.add('hidden'); $('s3').classList.remove('hidden');
+  const info=$('sendInfo');
+
+  if(CONFIG.formspreeEndpoint){
+    try{
+      const r=await fetch(CONFIG.formspreeEndpoint,{method:'POST',
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body:JSON.stringify({date:text,iso:d.toISOString().slice(0,10),time:pickedTime,message})});
+      info.textContent=r.ok?'送信しました ✅':'送信できませんでした。コピーして送ってね。';
+    }catch{ info.textContent='送信できませんでした。コピーして送ってね。'; }
+  } else if(CONFIG.telegramUsername){
+    info.textContent='Telegram を開いています…';
+    location.href=`https://t.me/${CONFIG.telegramUsername}?text=${encodeURIComponent(message)}`;
+  } else if(CONFIG.messengerUsername){
+    info.textContent='Messenger を開いています…';
+    location.href=`https://m.me/${CONFIG.messengerUsername}?text=${encodeURIComponent(message)}`;
+  } else {
+    info.textContent='下のボタンでコピーして送ってね 💌';
+  }
+});
+
+$('copy').addEventListener('click',async()=>{
+  try{ await navigator.clipboard.writeText(message); $('copy').textContent='コピーしました ✅'; }
+  catch{ prompt('コピーしてね',message); }
+});
+$('again').addEventListener('click',()=>{
+  pickedDate=pickedTime=null; check();
+  document.querySelectorAll('.sel').forEach(x=>x.classList.remove('sel'));
+  $('s3').classList.add('hidden'); $('s2').classList.remove('hidden');
+});
+</script>
 </body>
 </html>
